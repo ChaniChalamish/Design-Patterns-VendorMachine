@@ -9,15 +9,16 @@ namespace VendorMachine
     public class ReportDirector
     {
         private DailyReportBuilder reportBuilder;
-
-        public ReportDirector(DailyReportBuilder builder)
+        private PaymentHistory paymentHistory;
+        public ReportDirector(DailyReportBuilder builder, PaymentHistory paymentHistory)
         {
             reportBuilder = builder;
+            this.paymentHistory = paymentHistory;
         }
 
         public void ConstructReport()
         {
-            reportBuilder.CreateReport();
+            reportBuilder.CreateReport(paymentHistory);
         }
     }
 }

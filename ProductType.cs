@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace VendorMachine
 {
-    public interface IStockObserver
+    public enum ProductType
     {
-         void NotifyLowStock(Product product, ProviderDetails providerDetails);
+        Choclate, OrangeJuice, Tea,Cocoa, Snack,IceCoffee,Cappuchino, Cake,Bisly
     }
-
 }

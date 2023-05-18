@@ -8,9 +8,9 @@ namespace VendorMachine
 {
     public class StockObserver : IStockObserver
     {
-        public void NotifyLowStock(Product product)
+        public  void NotifyLowStock(Product product, ProviderDetails providerDetails)
         {
-            Console.WriteLine($"Low stock for {product.Name}. Notifying provider...");
+            MessageBox.Show($"Low stock for {product.Name}. Notifying provider{providerDetails.Name}");
             // Logic to notify the provider
         }
     }

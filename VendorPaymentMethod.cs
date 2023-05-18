@@ -7,61 +7,59 @@ using System.Threading.Tasks;
 
 namespace VendorMachine
 {
-    public class VendorPaymentMethod
+    public class VendorPaymentMethod : IState
     {
-        private Stock stock;
-        private List<IStockObserver> stockObservers;
+        
+        private IStockObserver stockObserver;
+        //private MachineState machineState;
+        public VendorPaymentMethod()
+        {
+            stockObserver = new StockObserver();
+            //  machineState = MachineState.PaymentInProgress;
+        }
+        // public MachineState GetMachineState()
 
-        public VendorPaymentMethod(Stock stock)
+        public decimal ProcessPayment(Product product, decimal paymentAmount, Stock stock)
         {
-            this.stock = stock;
-            stockObservers = new List<IStockObserver>();
-            machineState = MachineState.PaymentInProgress;
-        }
-        public MachineState GetMachineState()
-        {
-            return machineState;
-        }
-        public void AddStockObserver(IStockObserver observer)
-        {
-            stockObservers.Add(observer);
-        }
-        public void RemoveStockObserver(IStockObserver observer)
-        {
-            stockObservers.Remove(observer);
-        }
-        public decimal ProcessPayment(Product product, decimal paymentAmount)
-        {
+            if (product is Drink) { }
+
+            ProductType p;
+            var productType = Enum.TryParse(product.Name, out p);
+            int amountLeft = stock.CountProductStock(p, product);
             // Check stock amount and notify provider if it's less than 5
-            if (product is Drink drink)
+            if (amountLeft < 5)
             {
-                fo
-                foreach (var ingredient in drink.Ingredients)
+                ProviderDetails? providerDetails = stock.GetProvider(p);
+                if (providerDetails != null)
                 {
-                    if (stock.providers.TryGetValue(ingredient, out ProviderDetails provider) &&
-                        stock.drinks.ContainsKey(ingredient) && stock.drinks[ingredient].Count < 5)
-                    {
-                        observer.NotifyLowStock(ingredient);
-                        // Notify provider using the provider details for the ingredient
-                    }
+                    stockObserver.NotifyLowStock(product, providerDetails);
                 }
-            }
-            else if (product is Snack)
-                {
-                    if (!stock.snacks.Contains(product))
-                    {
-                        foreach (var observer in stockObservers)
-                        {
-                            observer.NotifyLowStock(product);
-                        }
-                        // Notify provider using the provider details
-                    }
-                }
-            machineState = MachineState.ProductSelection; ;
 
+            }
+            // machineState = MachineState.ProductSelection; 
+            decimal changeAmount = paymentAmount - product.Price;
             return changeAmount;
         }
 
-            // Payment processing logic
+        public Product ProcessProduct(Product product)
+        {
+            throw new NotImplementedException();
         }
+
+        public Product SelectProduct(string pro, Stock stock, bool bag, bool gift)
+        {
+            throw new NotImplementedException();
+        }
+        // return machineState;
     }
+
+
+
+
+}
+
+
+
+
+
+

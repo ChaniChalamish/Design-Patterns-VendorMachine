@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace VendorMachine
 {
-    public interface IStockObserver
+    public enum MachineState
     {
-         void NotifyLowStock(Product product, ProviderDetails providerDetails);
+        PaymentInProgress,
+        ProductSelection
     }
-
 }

@@ -10,17 +10,17 @@ namespace VendorMachine
     {
         protected List<string> reportLines;
 
-        public void CreateReport()
+        public void CreateReport(PaymentHistory paymentHistories)
         {
             reportLines = new List<string>();
             AddHeader();
-            AddContent();
+            AddContent( paymentHistories);
             AddFooter();
             SaveReportToFile();
         }
 
         protected abstract void AddHeader();
-        protected abstract void AddContent();
+        protected abstract void AddContent(PaymentHistory paymentHistories);
         protected abstract void AddFooter();
 
         protected abstract void SaveReportToFile();

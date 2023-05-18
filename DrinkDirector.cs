@@ -8,17 +8,20 @@ namespace VendorMachine
 {
     public class DrinkDirector
     {
-        private DrinkBuilder drinkBuilder;
+        //private DrinkBuilder drinkBuilder;
 
-        public DrinkDirector(DrinkBuilder builder)
-        {
-            drinkBuilder = builder;
-        }
+        //public DrinkDirector(DrinkBuilder builder)
+        //{
+        //    drinkBuilder = builder;
+        //}
 
-        public void ConstructDrink()
+        public Product ConstructDrink(DrinkBuilder drinkBuilder)
         {
-            drinkBuilder.CreateDrink();
-            drinkBuilder.AddIngredients();
+            //drinkBuilder.SetName();
+            drinkBuilder.SetPrice();
+            drinkBuilder.Pour();
+            drinkBuilder.AddIngredient();
+           return drinkBuilder.GetDrink();
         }
     }
 

@@ -13,9 +13,13 @@ namespace VendorMachine
             reportLines.Add("-------- Daily Report --------");
         }
 
-        protected override void AddContent()
+        protected override void AddContent(PaymentHistory paymentHistories)
         {
-            // Add content from the payment history
+            foreach (var payment in paymentHistories.paymentStates)
+            {
+                reportLines.Add( $"Date: {payment.State.Date}:Product: {payment.State.BoughtProduct.Name} Price:{payment.State.BoughtProduct.Price},PricePayment : {payment.State.PayedAmount},Change Given:{(payment.State.PayedAmount - payment.State.BoughtProduct.Price)}\n");
+                
+            }
         }
 
         protected override void AddFooter()

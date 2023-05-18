@@ -8,7 +8,7 @@ namespace VendorMachine
 {
     public class PaymentHistory
     {
-        private List<PaymentStateMemento> paymentStates;
+        public List<PaymentStateMemento> paymentStates;
 
         public PaymentHistory()
         {

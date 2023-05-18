@@ -10,6 +10,10 @@ namespace VendorMachine
     {
         CocoaPowder,
         IceCoffeePowder,
+        Coffee,
+        Sugar,
+        Tea,
+        Juice
         // Add more ingredients as needed
     }
 }

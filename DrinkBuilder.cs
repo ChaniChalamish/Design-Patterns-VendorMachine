@@ -16,9 +16,9 @@ namespace VendorMachine
             drink = new Drink();
         }
 
-        //public abstract DrinkBuilder SetName(string name);
+        //public abstract void SetName();
 
-        //public abstract DrinkBuilder SetPrice(decimal price);
+        public abstract void SetPrice();
         public abstract void Pour();
         public abstract void AddIngredient();
 

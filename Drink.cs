@@ -9,11 +9,16 @@ namespace VendorMachine
 {
     public class Drink : Product
     {
-        public List<Ingredient> Ingredients { get; set; }
-
-        public void AddIngredient(Ingredient ingredient)
+        public string? Description { get; set; }
+        public override string ToString()
         {
-            Ingredients.Add(ingredient);
+            return base.ToString()+Description;
         }
+        //public List<Ingredient> Ingredients { get; set; }
+
+        //public void AddIngredient(Ingredient ingredient)
+        //{
+        //    Ingredients.Add(ingredient);
+        //}
     }
 }
