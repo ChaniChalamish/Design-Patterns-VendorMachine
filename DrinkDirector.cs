@@ -18,7 +18,7 @@ namespace VendorMachine
         public Product ConstructDrink(DrinkBuilder drinkBuilder)
         {
             //drinkBuilder.SetName();
-            drinkBuilder.SetPrice();
+            //drinkBuilder.SetPrice();
             drinkBuilder.Pour();
             drinkBuilder.AddIngredient();
            return drinkBuilder.GetDrink();

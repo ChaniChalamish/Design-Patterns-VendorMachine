@@ -16,7 +16,7 @@ namespace VendorMachine
         public void AddProduct(ProductType type, Product product)
         {
             if (!products.ContainsKey(type))
-                products[type] = new List<Product>() { product};
+                products[type] = new List<Product>() { };
 
             products[type].Add(product);
         }

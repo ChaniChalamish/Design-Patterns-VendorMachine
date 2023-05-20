@@ -8,6 +8,10 @@ namespace VendorMachine
 {
     internal class IceCofeeBuilder : DrinkBuilder
     {
+        public IceCofeeBuilder(Drink drink) : base(drink)
+        {
+        }
+
         public override void AddIngredient()
         {
             drink.Description+="Adding Coffee flavor and whip on top";
@@ -23,9 +27,9 @@ namespace VendorMachine
         //    drink.Name= "IceCoffee";
         //}
 
-        public override void SetPrice()
-        {
-            drink.Price=15;
-        }
+        //public override void SetPrice()
+        //{
+        //    drink.Price=15;
+        //}
     }
 }

@@ -8,6 +8,10 @@ namespace VendorMachine
 {
     internal class TeaBuilder : DrinkBuilder
     {
+        public TeaBuilder(Drink drink) : base(drink)
+        {
+        }
+
         public override void AddIngredient()
         {
             drink.Description += "Adding cammomil";
@@ -23,9 +27,9 @@ namespace VendorMachine
         //    drink.Name="Tea";
         //}
 
-        public override void SetPrice()
-        {
-            drink.Price = 10; ;
-        }
+        //public override void SetPrice()
+        //{
+        //    drink.Price = 10; ;
+        //}
     }
 }

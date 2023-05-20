@@ -8,6 +8,10 @@ namespace VendorMachine
 {
     internal class CocoaBuilder : DrinkBuilder
     {
+        public CocoaBuilder(Drink drink) : base(drink)
+        {
+        }
+
         public override void AddIngredient()
         {
            drink.Description+="adding cocoa flavor and sugar";
@@ -23,9 +27,9 @@ namespace VendorMachine
         //    drink.Name="Cocoa";
         //}
 
-        public override void SetPrice()
-        {
-            drink.Price=6.5m;
-        }
+        //public override void SetPrice()
+        //{
+        //    drink.Price=6.5m;
+        //}
     }
 }

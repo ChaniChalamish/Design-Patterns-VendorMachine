@@ -19,6 +19,7 @@ namespace VendorMachine
         public void ConstructReport()
         {
             reportBuilder.CreateReport(paymentHistory);
+            paymentHistory.paymentStates.Clear();
         }
     }
 }

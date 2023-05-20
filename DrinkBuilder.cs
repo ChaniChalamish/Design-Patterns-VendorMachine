@@ -11,14 +11,14 @@ namespace VendorMachine
     {
         protected Drink drink;
 
-        public DrinkBuilder()
+        public DrinkBuilder(Drink drink)
         {
-            drink = new Drink();
+            this.drink = drink;
         }
 
         //public abstract void SetName();
 
-        public abstract void SetPrice();
+        //public abstract void SetPrice();
         public abstract void Pour();
         public abstract void AddIngredient();
 

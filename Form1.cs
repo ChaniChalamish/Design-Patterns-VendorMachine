@@ -19,12 +19,15 @@ namespace VendorMachine
         private Timer timer;
         public Form1()
         {
+
             InitializeComponent();
             InitializeStart();
-            vendorMachine = new VendorMachine();
+           
+            vendorMachine = new VendorMachine(new VendorSelectionMethod(),this);
         }
         private void InitializeStart()
         {
+            this.Controls.Clear();
             proceedToSelectbtn = new Button();
             proceedToSelectbtn.Location = new System.Drawing.Point(100, 100);
             proceedToSelectbtn.Width = 100;
@@ -34,10 +37,7 @@ namespace VendorMachine
         }
         private void InitializePayment()
         {
-            productComboBox.Hide();
-            proceedToPaymentbtn.Hide();
-            giftCheckBox.Hide();
-            bagCheckBox.Hide();
+            Controls.Clear();
             numericUpDown = new NumericUpDown();
             numericUpDown.Location = new System.Drawing.Point(10, 100);
             numericUpDown.Size = new System.Drawing.Size(80, 20);
@@ -57,7 +57,7 @@ namespace VendorMachine
         {
             proceedToSelectbtn.Hide();
             productComboBox = new ComboBox();
-            productComboBox.Location = new System.Drawing.Point(10, 10);
+            productComboBox.Location = new System.Drawing.Point(50, 50);
             productComboBox.Size = new System.Drawing.Size(200, 20);
             productComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -65,10 +65,10 @@ namespace VendorMachine
             productComboBox.DataSource = Enum.GetValues(typeof(ProductType));
             bagCheckBox = new CheckBox();
             bagCheckBox.Text = "Bag";
-            bagCheckBox.Location = new System.Drawing.Point(10, 40);
+            bagCheckBox.Location = new System.Drawing.Point(50, 100);
             giftCheckBox = new CheckBox();
             giftCheckBox.Text = "Gift";
-            giftCheckBox.Location = new System.Drawing.Point(10, 70);
+            giftCheckBox.Location = new System.Drawing.Point(50, 130);
             proceedToPaymentbtn = new Button();
             proceedToPaymentbtn.Text = "Proceed to Payment";
             proceedToPaymentbtn.Dock = DockStyle.Top;
@@ -92,10 +92,10 @@ namespace VendorMachine
             descLabel.Text = t;
             descLabel.AutoSize = false;
             descLabel.TextAlign = ContentAlignment.MiddleCenter;
-            descLabel.Font = new Font("Arial", 18, FontStyle.Bold);
+            descLabel.Font = new Font("Arial", 10, FontStyle.Bold);
             descLabel.ForeColor = Color.White;
             descLabel.BackColor = Color.DarkBlue;
-            descLabel.Size = new Size(200, 50);
+           descLabel.Size = new Size(400, 200);
             descLabel.Location = new Point((Width - descLabel.Width) / 2, (Height - descLabel.Height) / 2);
             Controls.Add(descLabel);
             timer = new Timer();

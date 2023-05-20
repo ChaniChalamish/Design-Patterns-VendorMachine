@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace VendorMachine
 {
-    public class VendorSelectionMethod : IState
+    public class VendorSelectionMethod : State
     {
 
-        public Product SelectProduct(string pro, Stock stock, bool bag, bool gift)
+        public override Product SelectProduct(string pro, Stock stock, bool bag, bool gift)
         {
 
             ProductType productType;
@@ -18,15 +18,15 @@ namespace VendorMachine
             return stock.GetProduct(productType);
 
         }
-        public decimal ProcessPayment(Product product, decimal paymentAmount, Stock stock)
+        public override decimal ProcessPayment(Product product, decimal paymentAmount, Stock stock)
         {
             Console.WriteLine("Payment is not allowed without selecting a product.");
             return 0;
         }
 
-        public Product ProcessProduct(Product product)
+        public override Product ProcessProduct(Product product)
         {
-            throw new NotImplementedException();
+           return null;
         }
     }
 }

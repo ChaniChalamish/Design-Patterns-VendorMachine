@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VendorMachine
 {
-    public class VendorPaymentMethod : IState
+    public class VendorPaymentMethod : State
     {
         
         private IStockObserver stockObserver;
@@ -19,36 +19,42 @@ namespace VendorMachine
         }
         // public MachineState GetMachineState()
 
-        public decimal ProcessPayment(Product product, decimal paymentAmount, Stock stock)
+        public override decimal ProcessPayment(Product product, decimal paymentAmount, Stock stock)
         {
-            if (product is Drink) { }
+          
 
-            ProductType p;
-            var productType = Enum.TryParse(product.Name, out p);
-            int amountLeft = stock.CountProductStock(p, product);
-            // Check stock amount and notify provider if it's less than 5
-            if (amountLeft < 5)
-            {
-                ProviderDetails? providerDetails = stock.GetProvider(p);
-                if (providerDetails != null)
-                {
-                    stockObserver.NotifyLowStock(product, providerDetails);
-                }
-
-            }
+            
+           
             // machineState = MachineState.ProductSelection; 
-            decimal changeAmount = paymentAmount - product.Price;
+            decimal changeAmount =  paymentAmount-product.Price;
+            if (changeAmount >= 0)
+            {
+                ProductType p;
+                var productType = Enum.TryParse(product.Name, out p);
+                int amountLeft = stock.CountProductStock(p, product);
+                // Check stock amount and notify provider if it's less than 5
+                if (amountLeft < 5)
+                {
+                    ProviderDetails? providerDetails = stock.GetProvider(p);
+                    if (providerDetails != null)
+                    {
+                        stockObserver.NotifyLowStock(product, providerDetails);
+                    }
+
+                }
+                this._vendor.TransitionTo(new VendorProcessProductMethod());
+            }
             return changeAmount;
         }
 
-        public Product ProcessProduct(Product product)
+        public override Product ProcessProduct(Product product)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public Product SelectProduct(string pro, Stock stock, bool bag, bool gift)
+        public override Product SelectProduct(string pro, Stock stock, bool bag, bool gift)
         {
-            throw new NotImplementedException();
+            return null;
         }
         // return machineState;
     }

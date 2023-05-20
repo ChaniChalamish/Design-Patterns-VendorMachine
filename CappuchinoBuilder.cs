@@ -8,6 +8,10 @@ namespace VendorMachine
 {
     internal class CappuchinoBuilder : DrinkBuilder
     {
+        public CappuchinoBuilder(Drink drink) : base(drink)
+        {
+        }
+
         public override void AddIngredient()
         {
             drink.Description += $"adding capuchino flavor";
@@ -24,10 +28,10 @@ namespace VendorMachine
             
         //}
 
-        public override void SetPrice()
-        {
-            drink.Price=17.5m;
+        //public override void SetPrice()
+        //{
+        //    drink.Price=17.5m;
             
-        }
+        //}
     }
 }

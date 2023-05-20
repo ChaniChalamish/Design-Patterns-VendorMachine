@@ -8,6 +8,6 @@ namespace VendorMachine
 {
     public enum ProductType
     {
-        Choclate, OrangeJuice, Tea,Cocoa, Snack,IceCoffee,Cappuchino, Cake,Bisly
+        Choclate, OrangeJuice, Tea,Cocoa, IceCoffee, Cappuchino, Bisly
     }
 }

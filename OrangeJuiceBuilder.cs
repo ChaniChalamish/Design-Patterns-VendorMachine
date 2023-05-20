@@ -8,6 +8,10 @@ namespace VendorMachine
 {
     internal class OrangeJuiceBuilder : DrinkBuilder
     {
+        public OrangeJuiceBuilder(Drink drink) : base(drink)
+        {
+        }
+
         public override void AddIngredient()
         {
             drink.Description+="Adding Orange juice";
@@ -23,10 +27,10 @@ namespace VendorMachine
         //   drink.Name= "OrangeJuice";
         //}
 
-        public override void SetPrice()
-        {
-            drink.Price = 9.7m;
+        //public override void SetPrice()
+        //{
+        //    drink.Price = 9.7m;
             
-        }
+        //}
     }
 }

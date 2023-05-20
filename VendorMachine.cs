@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+
 
 namespace VendorMachine
 {
@@ -11,45 +14,60 @@ namespace VendorMachine
 
         private Product? product;
         private decimal payed;
-        private IState currentState;
-        private Stock stock;
+        //public State currentState;
+        private State? _state = null;
+        private Form1 _form1;
+        private readonly Stock stock;
         private PaymentHistory paymentHistory;
 
-        public VendorMachine()
+        public VendorMachine(State state, Form1 form1)
         {
             // Initialize with product selection state
-            currentState = new VendorSelectionMethod();
+            this.TransitionTo(state);
+            //currentState = new VendorSelectionMethod();
             stock = new Stock();
             paymentHistory = new PaymentHistory();
             Initalstock();
+            SendReport();
+            _form1 = form1;
         }
-
-        public void SelectProduct(string pro, bool bag, bool gift)
+        public void TransitionTo(State state)
         {
-
-            product = currentState.SelectProduct(pro, stock, bag, gift);
+           // Console.WriteLine($"Context: Transition to {state.GetType().Name}.");
+            this._state = state;
+            _state.SetVendor(this);
+        }
+        public Product SelectProduct(string pro, bool bag, bool gift)
+        {
+            
+            product = _state.SelectProduct(pro, stock, bag, gift);
             // Transition to payment state
-            currentState = new VendorPaymentMethod();
+            //if(currentState is VendorSelectionMethod )
+            //  currentState = new VendorPaymentMethod();
+            this.TransitionTo( new VendorPaymentMethod());
+            return product;
         }
 
-        public decimal ProcessPayment(decimal paymentAmount)
+        public decimal ProcessPayment( decimal paymentAmount)
         {
             payed = paymentAmount;
-            decimal change = currentState.ProcessPayment(product, payed, stock);
+            decimal change = _state.ProcessPayment(product, payed, stock);
             // Transition back to product selection state
-            currentState = new VendorSelectionMethod();
+            //if(currentState is VendorPaymentMethod)
+              
             return change;
         }
         public Product ProcessProduct()
         {
-            product = currentState.ProcessProduct(product);
-            currentState = new VendorProcessProductMethod();
+            product = this._state.ProcessProduct(product);
             PaymentState paymentState = new() { Date = DateTime.Now, BoughtProduct = product, PayedAmount = payed };
             paymentHistory.AddPaymentState(paymentState);
-            SendReport();
-            currentState = new VendorSelectionMethod();
+            // if(currentState is VendorProcessProductMethod)
+            //  currentState = new VendorSelectionMethod();
+            this._state = new VendorSelectionMethod();
             return product;
         }
+
         public void SendReport()
         {
             string reportType = "text";
@@ -74,11 +92,13 @@ namespace VendorMachine
             Product s2 = new Product() { Name = "Choclate", Price = 7 };
             Product s3 = new Product() { Name = "Choclate", Price = 7 };
             Product s4 = new Product() { Name = "Choclate", Price = 7 };
-            Product s5 = new Drink() { Name="Cocoa" };
-            Product s6 = new Drink() { Name = "OrangeJuice" };
-            Product s7 = new Drink() { Name = "Tea" };
-            Product s8 = new Drink() { Name="Cappucino"};
-            Product s9 = new Drink() { Name = "IceCoffee" };
+            Product s5 = new Drink() { Name="Cocoa",Price=15 };
+            Product s6 = new Drink() { Name = "OrangeJuice" ,Price = 15 };
+            Product s7 = new Drink() { Name = "Tea", Price = 15 };
+            Product s8 = new Drink() { Name= "Cappuchino", Price = 15 };
+            Product s9 = new Drink() { Name = "IceCoffee" , Price = 15 };
+            stock.AddProduct(ProductType.Bisly, p);
+            stock.AddProduct(ProductType.Bisly, p);
             stock.AddProduct(ProductType.Bisly, p);
             stock.AddProduct(ProductType.Bisly, p1);
             stock.AddProduct(ProductType.Bisly, p2);
@@ -114,8 +134,6 @@ namespace VendorMachine
 
         }
 
-
-
-
+        
     }
 }

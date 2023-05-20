@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace VendorMachine
 {
-    internal class VendorProcessProductMethod : IState
+    internal class VendorProcessProductMethod : State
     {
 
-        public decimal ProcessPayment(Product product, decimal paymentAmoun, Stock stock)
+        public override decimal ProcessPayment(Product product, decimal paymentAmoun, Stock stock)
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
-        public Product ProcessProduct(Product product)
+        public override Product ProcessProduct(Product product)
         {
             if (product != null)
                 if (product is Drink)
@@ -24,33 +24,33 @@ namespace VendorMachine
                     switch (productType)
                     {
                         case ProductType.IceCoffee:
-                            builder = new IceCofeeBuilder();
+                            builder = new IceCofeeBuilder(product as Drink);
                             break;
                         case ProductType.OrangeJuice:
-                            builder = new OrangeJuiceBuilder();
+                            builder = new OrangeJuiceBuilder(product as Drink);
                             break;
                         case ProductType.Cocoa:
-                            builder = new CocoaBuilder();
+                            builder = new CocoaBuilder(product as Drink);
                             break;
                         case ProductType.Cappuchino:
-                            builder = new CappuchinoBuilder();
+                            builder = new CappuchinoBuilder(product as Drink);
                             break;
                         case ProductType.Tea:
-                            builder = new TeaBuilder();
+                            builder = new TeaBuilder(product as Drink);
                             break;
                         default:builder= null;
                             break;
 
                     }
-                    DrinkDirector drinkDirector = new DrinkDirector();
+                    DrinkDirector drinkDirector = new ();
                     return drinkDirector.ConstructDrink(builder);
                 }
             return product;
         }
 
-        public Product SelectProduct(string pro, Stock stock, bool bag, bool gift)
+        public override Product SelectProduct(string pro, Stock stock, bool bag, bool gift)
         {
-            throw new NotImplementedException();
+           return null;
         }
     }
 }

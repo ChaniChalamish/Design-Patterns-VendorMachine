@@ -8,8 +8,8 @@ namespace VendorMachine
 {
     public class ReportScheduler
     {
-        private Timer timer;
-        private ReportDirector reportDirector;
+        private readonly Timer timer;
+        private readonly ReportDirector reportDirector;
 
         public ReportScheduler(ReportDirector reportDirector)
         {
@@ -21,7 +21,7 @@ namespace VendorMachine
         public void ScheduleReportSending()
         {
             DateTime currentTime = DateTime.Now;
-            DateTime reportTime = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, 21, 0, 0); // Set report time to 9 o'clock
+            DateTime reportTime = new (currentTime.Year, currentTime.Month, currentTime.Day, 21, 0, 0); // Set report time to 9 o'clock
 
             if (currentTime > reportTime)
             {
@@ -36,6 +36,7 @@ namespace VendorMachine
         {
             timer.Stop();
             reportDirector.ConstructReport();
+            
             Console.WriteLine("Daily report sent");
 
         }
