@@ -29,7 +29,7 @@ namespace VendorMachine
 
         protected override void SaveReportToFile()
         {
-            File.WriteAllLines("daily_report.txt", reportLines);
+            File.WriteAllLines("C:\\Users\\user\\Desktop\\try\\VendorMachine\\daily_report.txt", reportLines);
             Console.WriteLine("Report saved to daily_report.txt");
         }
     }
