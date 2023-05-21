@@ -11,6 +11,7 @@ namespace VendorMachine
 
         public override decimal ProcessPayment(Product product, decimal paymentAmoun, Stock stock)
         {
+            Console.WriteLine("already inserted money ,now processing product");
             return 0;
         }
 
@@ -50,6 +51,7 @@ namespace VendorMachine
 
         public override Product SelectProduct(string pro, Stock stock, bool bag, bool gift)
         {
+            Console.WriteLine("alrady selcted product and payd for it ,now procesing it");
            return null;
         }
     }

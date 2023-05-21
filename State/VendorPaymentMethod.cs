@@ -9,31 +9,27 @@ namespace VendorMachine
 {
     public class VendorPaymentMethod : State
     {
-        
+
         private IStockObserver stockObserver;
-        //private MachineState machineState;
+
+        private const int NOTIFY_PROVIDER = 5;
         public VendorPaymentMethod()
         {
             stockObserver = new StockObserver();
-            //  machineState = MachineState.PaymentInProgress;
+
         }
-        // public MachineState GetMachineState()
+
 
         public override decimal ProcessPayment(Product product, decimal paymentAmount, Stock stock)
         {
-          
-
-            
-           
-            // machineState = MachineState.ProductSelection; 
-            decimal changeAmount =  paymentAmount-product.Price;
+            decimal changeAmount = paymentAmount - product.Price;
             if (changeAmount >= 0)
             {
                 ProductType p;
                 var productType = Enum.TryParse(product.Name, out p);
                 int amountLeft = stock.CountProductStock(p, product);
                 // Check stock amount and notify provider if it's less than 5
-                if (amountLeft < 5)
+                if (amountLeft < NOTIFY_PROVIDER)
                 {
                     ProviderDetails? providerDetails = stock.GetProvider(p);
                     if (providerDetails != null)
@@ -47,21 +43,19 @@ namespace VendorMachine
             return changeAmount;
         }
 
-        public override Product ProcessProduct(Product product)
+        public override Product? ProcessProduct(Product product)
         {
+            Console.WriteLine("not payed,canot procees it");
             return null;
         }
 
-        public override Product SelectProduct(string pro, Stock stock, bool bag, bool gift)
+        public override Product? SelectProduct(string pro, Stock stock, bool bag, bool gift)
         {
+            Console.WriteLine("selected product already");
             return null;
         }
-        // return machineState;
+        
     }
-
-
-
-
 }
 
 

@@ -22,14 +22,6 @@ namespace VendorMachine
             drink.Description+="Pouring boiling water";
         }
 
-        //public override void SetName()
-        //{
-        //    drink.Name="Cocoa";
-        //}
-
-        //public override void SetPrice()
-        //{
-        //    drink.Price=6.5m;
-        //}
+       
     }
 }

@@ -22,16 +22,6 @@ namespace VendorMachine
             drink.Description += $"Pouting Hot Water";
         }
 
-        //public override void SetName()
-        //{
-        //    drink.Name="Cappuchino";
-            
-        //}
-
-        //public override void SetPrice()
-        //{
-        //    drink.Price=17.5m;
-            
-        //}
+      
     }
 }

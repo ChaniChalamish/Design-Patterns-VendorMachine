@@ -2,6 +2,7 @@ using System.Diagnostics.Metrics;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
+
 namespace VendorMachine
 {
     public partial class Form1 : Form
@@ -15,21 +16,23 @@ namespace VendorMachine
         private NumericUpDown numericUpDown;
         private VendorMachine vendorMachine;
         private decimal change;
+        private decimal price;
         private Label descLabel;
+        private Label PriceLabel;
         private Timer timer;
         public Form1()
         {
 
             InitializeComponent();
             InitializeStart();
-           
-            vendorMachine = new VendorMachine(new VendorSelectionMethod(),this);
+
+            vendorMachine = new VendorMachine(new VendorSelectionMethod(), this);
         }
         private void InitializeStart()
         {
             this.Controls.Clear();
             proceedToSelectbtn = new Button();
-            proceedToSelectbtn.Location = new System.Drawing.Point(100, 100);
+            proceedToSelectbtn.Location = new Point((Width - proceedToSelectbtn.Width) / 2, (Height - proceedToSelectbtn.Height) / 2); ;
             proceedToSelectbtn.Width = 100;
             proceedToSelectbtn.Text = "Start your buing";
             proceedToSelectbtn.Click += ProceedToSelectbtn_Click;
@@ -43,6 +46,10 @@ namespace VendorMachine
             numericUpDown.Size = new System.Drawing.Size(80, 20);
             numericUpDown.Minimum = 0;
             numericUpDown.Maximum = 100;
+            PriceLabel = new Label();
+            PriceLabel.Text = $"price {price}";
+            PriceLabel.AutoSize = false;
+            PriceLabel.TextAlign = ContentAlignment.MiddleCenter;
             endPaymentbtn = new Button();
             endPaymentbtn.Location = new System.Drawing.Point(100, 100);
             endPaymentbtn.Width = 100;
@@ -50,6 +57,7 @@ namespace VendorMachine
             endPaymentbtn.Click += Paymentbtn_Click;
             Controls.Add((endPaymentbtn));
             Controls.Add(numericUpDown);
+            Controls.Add((PriceLabel));
         }
 
 
@@ -85,17 +93,17 @@ namespace VendorMachine
         }
         private void InitializeProcess()
         {
-            string t = vendorMachine.ProcessProduct().ToString();
+            PriceLabel.Hide();
             endPaymentbtn.Hide();
             numericUpDown.Hide();
             descLabel = new Label();
-            descLabel.Text = t;
+            descLabel.Text = vendorMachine.ProcessProduct().ToString();
             descLabel.AutoSize = false;
             descLabel.TextAlign = ContentAlignment.MiddleCenter;
             descLabel.Font = new Font("Arial", 10, FontStyle.Bold);
             descLabel.ForeColor = Color.White;
             descLabel.BackColor = Color.DarkBlue;
-           descLabel.Size = new Size(400, 200);
+            descLabel.Size = new Size(400, 200);
             descLabel.Location = new Point((Width - descLabel.Width) / 2, (Height - descLabel.Height) / 2);
             Controls.Add(descLabel);
             timer = new Timer();
@@ -103,7 +111,7 @@ namespace VendorMachine
             timer.Tick += Timer_Tick;
             timer.Start();
 
-            
+
 
         }
         private void ProceedToSelectbtn_Click(object sender, EventArgs e)
@@ -116,7 +124,7 @@ namespace VendorMachine
             string? selectedOption = productComboBox.SelectedItem.ToString();
             bool isBagSelected = bagCheckBox.Checked;
             bool isGiftSelected = giftCheckBox.Checked;
-            vendorMachine.SelectProduct(selectedOption, isBagSelected, isGiftSelected);
+            price = vendorMachine.SelectProduct(selectedOption, isBagSelected, isGiftSelected).Price;
             InitializePayment();
 
         }
@@ -128,15 +136,19 @@ namespace VendorMachine
             {
                 MessageBox.Show("Not Enough Money", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 InitializePayment();
+                return;
 
             }
+            if (change == 0) { MessageBox.Show($"You have got no change", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information); }
             else
             {
                 MessageBox.Show($"You have got {change} change", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                InitializeProcess();
+
             }
+            InitializeProcess();
+            return;
         }
-        private  void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             timer.Stop();
             InitializeStart();

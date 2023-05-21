@@ -9,6 +9,10 @@ namespace VendorMachine
 {
     public class Drink : Product
     {
-        
+        public override string ToString()
+        {
+            return $"{ base.ToString()},{Description}" ;
+        }
+
     }
 }

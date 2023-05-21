@@ -14,7 +14,7 @@ namespace VendorMachine
 
         private Product? product;
         private decimal payed;
-        //public State currentState;
+       
         private State? _state = null;
         private Form1 _form1;
         private readonly Stock stock;
@@ -22,9 +22,7 @@ namespace VendorMachine
 
         public VendorMachine(State state, Form1 form1)
         {
-            // Initialize with product selection state
             this.TransitionTo(state);
-            //currentState = new VendorSelectionMethod();
             stock = new Stock();
             paymentHistory = new PaymentHistory();
             Initalstock();
@@ -33,7 +31,7 @@ namespace VendorMachine
         }
         public void TransitionTo(State state)
         {
-           // Console.WriteLine($"Context: Transition to {state.GetType().Name}.");
+          
             this._state = state;
             _state.SetVendor(this);
         }
@@ -41,9 +39,6 @@ namespace VendorMachine
         {
             
             product = _state.SelectProduct(pro, stock, bag, gift);
-            // Transition to payment state
-            //if(currentState is VendorSelectionMethod )
-            //  currentState = new VendorPaymentMethod();
             this.TransitionTo( new VendorPaymentMethod());
             return product;
         }
@@ -52,9 +47,6 @@ namespace VendorMachine
         {
             payed = paymentAmount;
             decimal change = _state.ProcessPayment(product, payed, stock);
-            // Transition back to product selection state
-            //if(currentState is VendorPaymentMethod)
-              
             return change;
         }
         public Product ProcessProduct()
@@ -62,8 +54,6 @@ namespace VendorMachine
             product = this._state.ProcessProduct(product);
             PaymentState paymentState = new() { Date = DateTime.Now, BoughtProduct = product, PayedAmount = payed };
             paymentHistory.AddPaymentState(paymentState);
-            // if(currentState is VendorProcessProductMethod)
-            //  currentState = new VendorSelectionMethod();
             this._state = new VendorSelectionMethod();
             return product;
         }

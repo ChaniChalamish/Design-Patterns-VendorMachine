@@ -22,15 +22,6 @@ namespace VendorMachine
             drink.Description += "Pouring ice cubes";
         }
 
-        //public override void SetName()
-        //{
-        //   drink.Name= "OrangeJuice";
-        //}
-
-        //public override void SetPrice()
-        //{
-        //    drink.Price = 9.7m;
-            
-        //}
+        
     }
 }

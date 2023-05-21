@@ -20,7 +20,7 @@ namespace VendorMachine
 
             products[type].Add(product);
         }
-        public Product GetProduct(ProductType type)
+        public Product? GetProduct(ProductType type)
         {
             if (products.ContainsKey(type))
                 if (products[type].Count > 0)
