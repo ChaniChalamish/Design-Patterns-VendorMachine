@@ -8,14 +8,11 @@ namespace VendorMachine
 {
     public class DrinkDirector
     {
-       
-
         public Product ConstructDrink(DrinkBuilder drinkBuilder)
         {
-          ;
             drinkBuilder.Pour();
             drinkBuilder.AddIngredient();
-           return drinkBuilder.GetDrink();
+            return drinkBuilder.GetDrink();
         }
     }
 

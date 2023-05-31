@@ -11,10 +11,8 @@ namespace VendorMachine
 {
     public class VendorMachine
     {
-
         private Product? product;
         private decimal payed;
-       
         private State? _state = null;
         private Form1 _form1;
         private readonly Stock stock;
@@ -31,19 +29,18 @@ namespace VendorMachine
         }
         public void TransitionTo(State state)
         {
-          
+
             this._state = state;
             _state.SetVendor(this);
         }
         public Product SelectProduct(string pro, bool bag, bool gift)
         {
-            
+
             product = _state.SelectProduct(pro, stock, bag, gift);
-            this.TransitionTo( new VendorPaymentMethod());
+            TransitionTo(new VendorPaymentMethod());
             return product;
         }
-
-        public decimal ProcessPayment( decimal paymentAmount)
+        public decimal ProcessPayment(decimal paymentAmount)
         {
             payed = paymentAmount;
             decimal change = _state.ProcessPayment(product, payed, stock);
@@ -57,7 +54,6 @@ namespace VendorMachine
             this._state = new VendorSelectionMethod();
             return product;
         }
-
         public void SendReport()
         {
             string reportType = "text";
@@ -82,11 +78,11 @@ namespace VendorMachine
             Product s2 = new Product() { Name = "Choclate", Price = 7 };
             Product s3 = new Product() { Name = "Choclate", Price = 7 };
             Product s4 = new Product() { Name = "Choclate", Price = 7 };
-            Product s5 = new Drink() { Name="Cocoa",Price=15 };
-            Product s6 = new Drink() { Name = "OrangeJuice" ,Price = 15 };
+            Product s5 = new Drink() { Name = "Cocoa", Price = 15 };
+            Product s6 = new Drink() { Name = "OrangeJuice", Price = 15 };
             Product s7 = new Drink() { Name = "Tea", Price = 15 };
-            Product s8 = new Drink() { Name= "Cappuchino", Price = 15 };
-            Product s9 = new Drink() { Name = "IceCoffee" , Price = 15 };
+            Product s8 = new Drink() { Name = "Cappuchino", Price = 15 };
+            Product s9 = new Drink() { Name = "IceCoffee", Price = 15 };
             stock.AddProduct(ProductType.Bisly, p);
             stock.AddProduct(ProductType.Bisly, p);
             stock.AddProduct(ProductType.Bisly, p);
@@ -124,6 +120,6 @@ namespace VendorMachine
 
         }
 
-        
+
     }
 }
